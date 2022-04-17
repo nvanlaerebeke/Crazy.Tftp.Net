@@ -6,7 +6,17 @@
       "environmentVariables": {
         "MAC_ADDRESSES": "[ \"52:54:00:bd:a5:40\" ]",
         "TFTP_ROOT": "",
-        "TFTP_DEFAULT_ROOT": ""
+        "TFTP_DEFAULT_ROOT": "",
+        "PORT": "6666"
+      }
+    },
+    "Dockerfile": {
+      "commandName": "Docker",
+      "environmentVariables": {
+        "MAC_ADDRESSES": "[ \"52:54:00:bd:a5:40\" ]",
+        "TFTP_ROOT": "",
+        "TFTP_DEFAULT_ROOT": "",
+        "PORT": "6666"
       }
     }
   }
