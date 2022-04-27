@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Mac.Tftp": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MAC_ADDRESSES": "",
+        "TFTP_ROOT": "",
+        "TFTP_DEFAULT_ROOT": "",
+        "PORT": "6666"
+      }
+    }
+  }
+}

@@ -3,15 +3,17 @@
 PROJECT="Mac.Tftp.Net"
 PWD=$(shell pwd)
 PORT:=69
-MAC_ADDRESSES:= "[ ]"
 TFTP_ROOT:=$(shell pwd)/data
 
+clean:
+	rm -rf build
+
 build:
-	dotnet restore src/Mac.Tftp && \
-	dotnet publish -c Release -o ./build -r linux-x64 --self-contained true -p:PublishTrimmed=true src/Mac.Tftp/Mac.Tftp.csproj
+	dotnet restore src/Crazy.Tftp && \
+	dotnet publish -c Release -o ./build -r linux-x64 --self-contained true -p:PublishTrimmed=true src/Crazy.Tftp/Crazy.Tftp.csproj
 
 run:
-	MAC_ADDRESSES='${MAC_ADDRESSES}' TFTP_ROOT='${TFTP_ROOT}' PORT='${PORT}' ./build/Mac.Tftp
+	TFTP_ROOT='${TFTP_ROOT}' PORT='${PORT}' ./build/Crazy.Tftp
 
 install:
 	cp ./etc/systemd.service /etc/systemd/user/mac.tftp.service

@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Mac.Tftp;
+namespace Crazy.Tftp.Filters.Mac;
 
 internal class ShellCommand
 {

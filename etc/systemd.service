@@ -1,11 +1,9 @@
 [Unit]
 Description=TFTP server based on MAC addresses
-After=network.service
-Requires=network.service
+After=network-online.target
+Requires=network-online.targe
 
 [Service]
-Environment="[\"52:54:00:bd:a5:40\"]"
-Environment="TFTP_ROOT=/var/tftp"
 TimeoutStartSec=0
 Restart=always
 ExecStart=/bin/Mac.Tftp 

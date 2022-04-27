@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace Mac.Tftp;
+namespace Crazy.Tftp;
 
 internal static class Logger
 {
