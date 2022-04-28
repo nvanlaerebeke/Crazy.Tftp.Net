@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Crazy.Tftp;
+using Crazy.Tftp.Config;
 using Crazy.Tftp.Filters.IP;
 using Crazy.Tftp.Filters.Mac;
 using Microsoft.Extensions.Logging;
@@ -12,14 +13,19 @@ Console.CancelKeyPress += (_, _) =>
     Closing.Set();
 };
 
-//Start the server
-using var server = new TftpServer();
-
-
 var log = Logger.Get<Program>();
 
 log.LogInformation("Listening on {ip}:{port}", IPAddress.Any, Settings.Port);
 log.LogInformation("Document Root: {root}", Settings.Root);
+
+if (!Directory.Exists(Settings.Root))
+{
+    log.LogInformation("Data directory '{data_dir}' does not exist, creating it...", Settings.Root);
+    Directory.CreateDirectory(Settings.Root);
+}
+
+//Tftp Server Instance
+using var server = new TftpServer();
 
 //Mac Addresses
 if (Settings.MacAddresses.Count > 0)
@@ -33,10 +39,9 @@ if (Settings.MacAddresses.Count > 0)
 if (Settings.IpAddresses.Count > 0)
 {
     log.LogInformation("Found {count} Ip Addresses:", Settings.IpAddresses.Count);
-    Settings.MacAddresses.ForEach(ip => log.LogInformation("-> {ip}", ip));
+    Settings.IpAddresses.ForEach(ip => log.LogInformation("-> {ip}", ip));
     server.AddFilter(new IpFilter());
 }
-
 
 server.Start();
 Closing.WaitOne();

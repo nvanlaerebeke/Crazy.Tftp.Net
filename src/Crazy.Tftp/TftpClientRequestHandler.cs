@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Net;
+using Crazy.Tftp.Config;
 using Crazy.Tftp.Filters;
 using Microsoft.Extensions.Logging;
 using Tftp.Net;

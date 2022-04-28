@@ -1,4 +1,5 @@
 using System.Net;
+using Crazy.Tftp.Config;
 
 namespace Crazy.Tftp.Filters.Mac;
 
@@ -13,7 +14,6 @@ internal class MacFilter : IFilter
     public string GetPath(IPAddress ipAddress, string path)
     {
         var mac = MacAddress.GetByIPAddress(ipAddress);
-        return mac == null ? Path.Combine(Settings.Root, path) : Path.Combine(Settings.Root, mac.ToLower(), path)
-            ;
+        return mac == null ? Path.Combine(Settings.Root, path) : Path.Combine(Settings.Root, mac.ToLower(), path);
     }
 }

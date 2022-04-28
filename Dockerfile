@@ -4,10 +4,15 @@ WORKDIR /app
 COPY ./src ./
 
 RUN dotnet restore 
-RUN dotnet publish -c Release -o /build
+RUN dotnet publish -c Release -o /build -r linux-x64 --self-contained true -p:PublishTrimmed=true "Crazy.Tftp/Crazy.Tftp.csproj"
 
 # Build runtime image
 FROM  mcr.microsoft.com/dotnet/runtime-deps:6.0
 WORKDIR /app
+
+RUN apt-get update && \
+    apt-get install -y net-tools && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY --from=build-env /build .
-ENTRYPOINT ["Crazy.Tftp"]
+ENTRYPOINT ["/app/Crazy.Tftp"]

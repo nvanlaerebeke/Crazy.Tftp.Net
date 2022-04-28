@@ -4,10 +4,10 @@ PROJECT="Crazy.Tftp"
 PROJECT_LOWER=$(shell echo $(PROJECT) | tr A-Z a-z)
 PWD=$(shell pwd)
 
-PORT:=69
-TFTP_ROOT:=$(shell pwd)/data
 VERSION:=$(shell cat VERSION | tr --delete '/n')
 ARCH:=amd64
+
+DATADIR:="${PWD}/data"
 
 clean:
 	rm -rf build
@@ -34,15 +34,13 @@ apt: build
 	rm -f ${PWD}/build/output/*.deb
 	dpkg-deb --build "${PWD}/build/apt/${PROJECT_LOWER}" "${PWD}/build/output/${PROJECT_LOWER}-${VERSION}-${ARCH}.deb"
 
-run:
-	TFTP_ROOT='${TFTP_ROOT}' PORT='${PORT}' ./build/Crazy.Tftp
-
 container:
-	docker build -t "$(PROJECT_LOWER}" -f . 
+	docker build -t "${PROJECT_LOWER}:${VERSION}" .
 
-install:
-	cp ./etc/systemd.service /etc/systemd/user/mac.tftp.service
-	systemctl daemon-reload
-	mkdir -p /opt/Mac.Tftp
-	cp -R ./build /opt/Mac.Tftp
-	ln -s /opt/Mac.Tftp/Mac.Tftp /bin/Mac.Tftp
+run: container
+	docker run -ti --rm \
+		--name "${PROJECT_LOWER}" \
+		--network=host \
+		-v "${DATADIR}:/var/lib/crazy.tftp/data" \
+		-v "${PWD}/etc/crazy.tftp_sample_config:/etc/crazy.tftp" \
+		${PROJECT_LOWER}:${VERSION}

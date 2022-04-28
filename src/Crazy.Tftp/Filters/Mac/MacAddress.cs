@@ -1,9 +1,10 @@
 using System.Collections.Concurrent;
 using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace Crazy.Tftp.Filters.Mac;
 
-internal static class MacAddress
+internal class MacAddress
 {
     private static readonly ConcurrentDictionary<string, string?> _macAddressCache = new();
 
@@ -23,6 +24,15 @@ internal static class MacAddress
         }
 
         var macAddress = GetMacAddress(ipAddress);
+        if (string.IsNullOrEmpty(macAddress))
+        {
+            Logger.Get<MacAddress>().LogInformation("No MAC address found for IP {ip}", ipAddress.ToString());
+        }
+        else
+        {
+            Logger.Get<MacAddress>().LogInformation("IP: {ip} has mac {mac}. adding to cache", ipAddress.ToString(), macAddress);
+        }
+
         _macAddressCache.TryAdd(ipAddress.ToString().ToLower(), macAddress);
         return macAddress;
     }
