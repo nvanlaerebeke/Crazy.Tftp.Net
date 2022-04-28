@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+if [ ! -f "/bin/crazy.tftp" ];
+then
+    ln -s /usr/lib/crazy.tftp/Crazy.Tftp /bin/crazy.tftp
+fi
+
+systemctl daemon-reload

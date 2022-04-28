@@ -1,12 +1,12 @@
 [Unit]
-Description=TFTP server based on MAC addresses
+Description=TFTP server with optional directories per MAC or IP Address
 After=network-online.target
-Requires=network-online.targe
+Requires=network-online.target
 
 [Service]
 TimeoutStartSec=0
 Restart=always
-ExecStart=/bin/Mac.Tftp 
+ExecStart=/usr/lib/crazy.tftp/Crazy.Tftp
 
 [Install]
 WantedBy=multi-user.target

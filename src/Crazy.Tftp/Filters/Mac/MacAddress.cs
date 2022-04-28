@@ -6,7 +6,7 @@ namespace Crazy.Tftp.Filters.Mac;
 internal static class MacAddress
 {
     private static readonly ConcurrentDictionary<string, string?> _macAddressCache = new();
-    
+
     /// <summary>
     ///     Gets the MAC address hex format based on the IP address
     ///     Note that the IP address must already be in the ARP cache list
@@ -26,7 +26,7 @@ internal static class MacAddress
         _macAddressCache.TryAdd(ipAddress.ToString().ToLower(), macAddress);
         return macAddress;
     }
-    
+
     private static string? GetMacAddress(IPAddress address)
     {
         var c = new ShellCommand("getMac.sh");

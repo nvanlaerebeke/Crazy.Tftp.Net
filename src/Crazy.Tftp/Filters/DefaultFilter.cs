@@ -2,7 +2,7 @@ using System.Net;
 
 namespace Crazy.Tftp.Filters;
 
-internal class DefaultFilter: IFilter
+internal class DefaultFilter : IFilter
 {
     public bool HasMatch(IPAddress ipAddress)
     {

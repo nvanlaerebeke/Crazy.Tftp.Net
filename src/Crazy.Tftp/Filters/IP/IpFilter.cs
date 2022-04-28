@@ -1,9 +1,8 @@
 using System.Net;
-using Crazy.Tftp.Filters.Mac;
 
 namespace Crazy.Tftp.Filters.IP;
 
-internal class IpFilter: IFilter
+internal class IpFilter : IFilter
 {
     public bool HasMatch(IPAddress ipAddress)
     {
