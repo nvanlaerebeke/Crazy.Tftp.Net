@@ -105,4 +105,3 @@ make build
 ```
 
 The binaries and dependencies will be put in `./build/app/`
-
