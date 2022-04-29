@@ -82,7 +82,9 @@ A `docker-compose.yaml` file is included, to build and run the `tftp` server, ru
 docker-compose -d up
 ```
 
-This will start on port 69 with the default settings and example configuration file.
+This will start on port 69 with the default settings and example configuration file.  
+Note that this will run in it's on network so the MAC address filtering will not work.  
+To get this to work modify the compose file to run the container on the host network.
 
 ## Bare Metal
 
