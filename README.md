@@ -76,6 +76,16 @@ Example without MAC address filter:
 
 To run the container on the host network replace `-p 69:69/udp` with `--network host`.
 
+### Docker-compose
+
+A `docker-compose.yaml` file is included, to build and run the `tftp` server, run:
+
+```console
+docker-compose -d up
+```
+
+This will start on port 69 with the default settings and example configuration file.
+
 ### Bare Metal
 
 The `Makefile` gives you the ability to create an `apt` package, to generate it, run:
@@ -86,6 +96,13 @@ make apt
 
 The resulting apt package will be located in `./build/output`
 
-### Kubernetes
+### Custom Build
 
-To run on kubernetes with suppo
+To build the source run the `make build` command:
+
+```console
+make build
+```
+
+The binaries and dependencies will be put in `./build/app/`
+

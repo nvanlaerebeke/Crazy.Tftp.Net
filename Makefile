@@ -15,7 +15,7 @@ clean:
 build:
 	mkdir -p "${PWD}/build/app"
 	dotnet restore "${PWD}/src/Crazy.Tftp" && \
-	dotnet publish -c Release -o "${PWD}/build/app" -r linux-x64 --self-contained true -p:PublishTrimmed=true "${PWD}/src/Crazy.Tftp/Crazy.Tftp.csproj"
+	dotnet publish -c Release -o "${PWD}/build/app" -r linux-x64 --self-contained true -p:PublishTrimmed=true /p:DebugSymbols=false /p:DebugType=None "${PWD}/src/Crazy.Tftp/Crazy.Tftp.csproj"
 
 apt: build
 	mkdir -p \

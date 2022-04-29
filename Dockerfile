@@ -4,7 +4,7 @@ WORKDIR /app
 COPY ./src ./
 
 RUN dotnet restore 
-RUN dotnet publish -c Release -o /build -r linux-x64 --self-contained true -p:PublishTrimmed=true "Crazy.Tftp/Crazy.Tftp.csproj"
+RUN dotnet publish -c Release -o /build -r linux-x64 --self-contained true -p:PublishTrimmed=true /p:DebugSymbols=false /p:DebugType=None "Crazy.Tftp/Crazy.Tftp.csproj"
 
 # Build runtime image
 FROM  mcr.microsoft.com/dotnet/runtime-deps:6.0

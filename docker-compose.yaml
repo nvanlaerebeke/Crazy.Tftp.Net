@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  tftp:
+    build: .
+    container_name: crazy.tftp
+    restart: always
+    ports:
+      - "69:69/udp"
+    volumes:
+      - ./data:/var/lib/crazy.tftp/data
+      - ./etc/crazy.tftp_sample_config:/etc/crazy.tftp
