@@ -3,6 +3,12 @@
 TFTP server using [Tftp.NET](https://github.com/Callisto82/tftp.net) with additional filter options.  
 Has the ability to send requests from a specific `IP` or Mac address to it's own directory.  
 
+## QuickStart
+
+There is a public docker image available on docker hub with a quick getting started.
+
+The page can be found [here](https://hub.docker.com/repository/docker/crazytje/crazy.tftp)
+
 ## Requirements
 
 ### Building on the Host
@@ -11,11 +17,11 @@ To build on the host the `.net 6.0 SDK` is required.
 
 ### Building the docker container
 
-When building using docker the build will be done during the docker build so only docker is required.
+When building using docker the `Dockerfile` will build using the .NET 6 `SDK` container image so only docker is required.
 
 ### Apt package
 
-To build the apt package, `dpkg-deb` must be installed.
+To build the apt package, `dpkg-deb` and the `.net 6.0 SDK` must be installed.  
 
 ## Configuration
 

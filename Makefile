@@ -1,6 +1,7 @@
 .PHONY: build run
 
 PROJECT="Crazy.Tftp"
+DOCKER_USER="crazytje"
 PROJECT_LOWER=$(shell echo $(PROJECT) | tr A-Z a-z)
 PWD=$(shell pwd)
 
@@ -35,7 +36,8 @@ apt: build
 	dpkg-deb --build "${PWD}/build/apt/${PROJECT_LOWER}" "${PWD}/build/output/${PROJECT_LOWER}-${VERSION}-${ARCH}.deb"
 
 container:
-	docker build -t "${PROJECT_LOWER}:${VERSION}" .
+	docker build -t "${DOCKER_USER}/${PROJECT_LOWER}:${VERSION}" .
+	docker image tag "${DOCKER_USER}/${PROJECT_LOWER}:${VERSION}" "${DOCKER_USER}/${PROJECT_LOWER}:latest"
 
 run: container
 	docker run -ti --rm \
@@ -44,3 +46,7 @@ run: container
 		-v "${DATADIR}:/var/lib/crazy.tftp/data" \
 		-v "${PWD}/etc/crazy.tftp_sample_config:/etc/crazy.tftp" \
 		${PROJECT_LOWER}:${VERSION}
+
+push: container
+	docker push "${DOCKER_USER}/${PROJECT_LOWER}:${VERSION}" 
+	docker push "${DOCKER_USER}/${PROJECT_LOWER}:latest" 
