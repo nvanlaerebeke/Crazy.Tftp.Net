@@ -7,7 +7,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o /build -r linux-x64 --self-contained true -p:PublishTrimmed=true /p:DebugSymbols=false /p:DebugType=None "Crazy.Tftp/Crazy.Tftp.csproj"
 
 # Build runtime image
-FROM  mcr.microsoft.com/dotnet/runtime-deps:6.0
+FROM  mcr.microsoft.com/dotnet/runtime:6.0
 WORKDIR /app
 
 RUN apt-get update && \

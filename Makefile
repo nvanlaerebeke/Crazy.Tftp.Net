@@ -36,7 +36,7 @@ apt: build
 	dpkg-deb --build "${PWD}/build/apt/${PROJECT_LOWER}" "${PWD}/build/output/${PROJECT_LOWER}-${VERSION}-${ARCH}.deb"
 
 container:
-	docker build -t "${DOCKER_USER}/${PROJECT_LOWER}:${VERSION}" .
+	docker build -t "${DOCKER_USER}/${PROJECT_LOWER}:${VERSION}" --no-cache .
 	docker image tag "${DOCKER_USER}/${PROJECT_LOWER}:${VERSION}" "${DOCKER_USER}/${PROJECT_LOWER}:latest"
 
 run: container

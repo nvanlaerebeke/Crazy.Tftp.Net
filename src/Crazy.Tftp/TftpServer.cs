@@ -9,13 +9,9 @@ internal class TftpServer : IDisposable
     private readonly TftpClientRequestHandler _tftpClientRequestHandler;
     private readonly global::Tftp.Net.TftpServer _tftpServer;
 
-    public TftpServer() : this(new TftpClientRequestHandler())
+    public TftpServer()
     {
-    }
-
-    private TftpServer(TftpClientRequestHandler tftpClientRequestHandler)
-    {
-        _tftpClientRequestHandler = tftpClientRequestHandler;
+        _tftpClientRequestHandler = new TftpClientRequestHandler();
         _tftpServer = new global::Tftp.Net.TftpServer(IPAddress.Any, Settings.Port);
     }
 
@@ -23,6 +19,10 @@ internal class TftpServer : IDisposable
     {
         _tftpServer.OnReadRequest += (transfer, client) => { _tftpClientRequestHandler.Read(transfer, client); };
         _tftpServer.OnWriteRequest += (transfer, client) => { _tftpClientRequestHandler.Write(transfer, client); };
+        _tftpServer.OnError += (error) =>
+        {
+            Console.WriteLine($"Error: {error}");
+        };
         _tftpServer.Start();
     }
 

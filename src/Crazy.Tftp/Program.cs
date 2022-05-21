@@ -25,23 +25,24 @@ if (!Directory.Exists(Settings.Root))
 }
 
 //Tftp Server Instance
-using var server = new TftpServer();
-
-//Mac Addresses
-if (Settings.MacAddresses.Count > 0)
+using (var server = new TftpServer())
 {
-    log.LogInformation("Found {count} Mac Addresses:", Settings.MacAddresses.Count);
-    Settings.MacAddresses.ForEach(mac => log.LogInformation("-> {mac}", mac));
-    server.AddFilter(new MacFilter());
-}
+    //Mac Addresses
+    if (Settings.MacAddresses.Count > 0)
+    {
+        log.LogInformation("Found {count} Mac Addresses:", Settings.MacAddresses.Count);
+        Settings.MacAddresses.ForEach(mac => log.LogInformation("-> {mac}", mac));
+        server.AddFilter(new MacFilter());
+    }
 
-//IP Addresses
-if (Settings.IpAddresses.Count > 0)
-{
-    log.LogInformation("Found {count} Ip Addresses:", Settings.IpAddresses.Count);
-    Settings.IpAddresses.ForEach(ip => log.LogInformation("-> {ip}", ip));
-    server.AddFilter(new IpFilter());
-}
+    //IP Addresses
+    if (Settings.IpAddresses.Count > 0)
+    {
+        log.LogInformation("Found {count} Ip Addresses:", Settings.IpAddresses.Count);
+        Settings.IpAddresses.ForEach(ip => log.LogInformation("-> {ip}", ip));
+        server.AddFilter(new IpFilter());
+    }
 
-server.Start();
-Closing.WaitOne();
+    server.Start();
+    Closing.WaitOne();
+}
